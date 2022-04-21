@@ -1,0 +1,92 @@
+﻿<Window x:Class="QTCoffeeSlotMachine.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:QTCoffeeSlotMachine.WpfApp.ViewModels"
+        xmlns:local="clr-namespace:QTCoffeeSlotMachine.WpfApp"
+        mc:Ignorable="d"
+        Title="CoffeeSlotMachine von Prof.Gehrer" Height="450" Width="700">
+    <Window.Resources>
+        <vm:CoffeeMachineViewModel x:Key="CoffeeMachine"></vm:CoffeeMachineViewModel>
+    </Window.Resources>
+    <Grid Background="WhiteSmoke" Margin="5">
+        <Grid.DataContext>
+            <StaticResource ResourceKey="CoffeeMachine" />
+        </Grid.DataContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="80"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Standort:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"></Label>
+        <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="8" Text="{Binding Location}" VerticalAlignment="Center" FontSize="16"></TextBlock>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Münzen:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="1" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="2" Content="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="3" Content="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="4" Content="50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="5" Content="100" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="3" Grid.Column="6" Content="200" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"></Label>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Kassa:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="4" Grid.Column="1" Content="{Binding FiveCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="4" Grid.Column="2" Content="{Binding TenCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="4" Grid.Column="3" Content="{Binding TwentyCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="4" Grid.Column="4" Content="{Binding FiftyCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="4" Grid.Column="5" Content="{Binding HundredCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="4" Grid.Column="6" Content="{Binding TwoHundredCentInDepot}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Eingabe:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding FiveCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Grid.Column="2" Content="{Binding TenCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Grid.Column="3" Content="{Binding TwentyCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Grid.Column="4" Content="{Binding FiftyCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Grid.Column="5" Content="{Binding HundredCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="5" Grid.Column="6" Content="{Binding TwoHundredCentInInsert}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <ComboBox Grid.Row="5" Grid.Column="8" ItemsSource="{Binding Coins}" SelectedValue="{Binding SelectedCoin}" FontFamily="Consolas" SelectedIndex="0" Margin="2"></ComboBox>
+        <Button Grid.Row="5" Grid.Column="9" Content="Einwurf" Command="{Binding InsertCoinCommand}" Margin="2,2,2,0" Height="21" VerticalAlignment="Top" Background="AliceBlue"/>
+        <Button Grid.Row="5" Grid.Column="10" Content="Abbruch" Command="{Binding CancelOrderCommand}" Margin="2"></Button>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Auswurf:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"></Label>
+        <Label Grid.Row="6" Grid.Column="1" Content="{Binding FiveCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="6" Grid.Column="2" Content="{Binding TenCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="6" Grid.Column="3" Content="{Binding TwentyCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="6" Grid.Column="4" Content="{Binding FiftyCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="6" Grid.Column="5" Content="{Binding HundredCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label Grid.Row="6" Grid.Column="6" Content="{Binding TwoHundredCentInEjection}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Button Grid.Row="6" Grid.Column="8" Content="Entleeren" Command="{Binding EjectCommand}" Margin="2"></Button>
+
+        <Label Grid.Row="8" Grid.Column="0" Content="Produkte:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"></Label>
+        <ListBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="6" ItemsSource="{Binding ProductInfos}" FontFamily="Consolas" IsEnabled="False" Margin="2">
+        </ListBox>
+        <Label Grid.Row="9" Grid.Column="0" Content="Auswahl:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"></Label>
+        <ComboBox Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="6" ItemsSource="{Binding ProductNames}" SelectedValue="{Binding SelectedProduct}" FontFamily="Consolas" SelectedIndex="0" Margin="2">
+        </ComboBox>
+        <Button Grid.Row="9" Grid.Column="8" Content="Auswahl" Command="{Binding SelectCommand}" Margin="2" Background="AliceBlue"></Button>
+    </Grid>
+</Window>
