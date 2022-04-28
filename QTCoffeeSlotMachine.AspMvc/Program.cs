@@ -6,6 +6,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
+// Add logic controllers
+builder.Services.AddTransient<QTCoffeeSlotMachine.Logic.Controllers.SlotMachinesController>();
+builder.Services.AddTransient<QTCoffeeSlotMachine.Logic.Controllers.ProductsController>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

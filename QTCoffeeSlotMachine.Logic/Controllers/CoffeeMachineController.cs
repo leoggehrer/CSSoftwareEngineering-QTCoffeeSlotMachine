@@ -2,7 +2,8 @@
 {
     public class CoffeeMachineController
     {
-		public const int Price = 50;
+		private int Id { get; set; }
+		public int Price { get; set; } = 50;
 		private int[] Coins { get; set; }
 		private int[] DepotCoins { get; set; }
 		private int[] InsertCoins { get; set; }
@@ -79,6 +80,89 @@
 			}
 		}
 
+		public CoffeeMachineController(string location)
+			: this()
+        {
+			Task.Run(async () => await LoadDataAsync(location)).Wait();
+        }
+		private async Task LoadDataAsync(string location)
+        {
+			using var smCtrl = new Logic.Controllers.SlotMachinesController();
+			var entities = await smCtrl.EntitySet.Where(e => e.Location == location)
+												 .Include(e => e.Products)
+												 .ToArrayAsync()
+												 .ConfigureAwait(false);
+
+			if (entities.Any())
+			{
+				var entity = entities[0];
+
+				CopyDataFromEntity(entity);
+			}
+		}
+		private async Task SaveDataAsync(int id)
+		{
+			using var smCtrl = new Logic.Controllers.SlotMachinesController();
+			var entities = await smCtrl.EntitySet.Where(e => e.Id == id)
+												 .Include(e => e.Products)
+												 .ToArrayAsync()
+												 .ConfigureAwait(false);
+			var entity = entities.FirstOrDefault();
+
+			if (entity != null)
+			{
+				CopyDataToEntity(entity);
+
+				var saveItem = await smCtrl.UpdateAsync(entity).ConfigureAwait(false);
+
+				await smCtrl.SaveChangesAsync().ConfigureAwait(false);
+
+				CopyDataFromEntity(saveItem);
+			}
+		}
+
+		private void CopyDataFromEntity(Entities.SlotMachine slotMachine)
+        {
+			Id = slotMachine.Id;
+			Location = slotMachine.Location;
+			Address = slotMachine.Address;
+			Price = slotMachine.Price;
+			DepotCoins[0] = slotMachine.DepoteCoin5;
+			DepotCoins[1] = slotMachine.DepoteCoin10;
+			DepotCoins[2] = slotMachine.DepoteCoin20;
+			DepotCoins[3] = slotMachine.DepoteCoin50;
+			DepotCoins[4] = slotMachine.DepoteCoin100;
+			DepotCoins[5] = slotMachine.DepoteCoin200;
+			Products = slotMachine.Products.Select(e => e.Name).ToArray();
+			ProductCounters = new int[Products.Length];
+
+            for (int i = 0; i < slotMachine.Products.Count; i++)
+            {
+				ProductCounters[i] = slotMachine.Products[i].Count;
+            }
+		}
+		private void CopyDataToEntity(Entities.SlotMachine slotMachine)
+		{
+			slotMachine.Location = Location;
+			slotMachine.Address = Address;
+			slotMachine.Price = Price;
+			slotMachine.DepoteCoin5 = DepotCoins[0];
+			slotMachine.DepoteCoin10 = DepotCoins[1];
+			slotMachine.DepoteCoin20 = DepotCoins[2];
+			slotMachine.DepoteCoin50 = DepotCoins[3];
+			slotMachine.DepoteCoin100 = DepotCoins[4];
+			slotMachine.DepoteCoin200 = DepotCoins[5];
+
+            for (int i = 0; i < ProductCounters.Length; i++)
+            {
+				if (i < slotMachine.Products.Count)
+                {
+					slotMachine.Products[i].Count = ProductCounters[i];
+                }
+            }
+		}
+		public string Location { get; private set; } = string.Empty;
+		public string Address { get; private set; } = string.Empty;
 		public bool InsertCoin(int coin)
 		{
 			bool result = false;
@@ -122,6 +206,7 @@
 					}
 				}
 			}
+			Task.Run(async () => await SaveDataAsync(Id)).Wait();
 			return result;
 		}
 

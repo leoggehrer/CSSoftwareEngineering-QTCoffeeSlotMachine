@@ -1,0 +1,81 @@
+﻿@model QTCoffeeSlotMachine.AspMvc.Models.SlotMachine
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SlotMachine</h4>
+<hr />
+
+@if (string.IsNullOrEmpty(ViewBag.Error) == false)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin5" class="control-label"></label>
+                <input asp-for="DepoteCoin5" class="form-control" />
+                <span asp-validation-for="DepoteCoin5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin10" class="control-label"></label>
+                <input asp-for="DepoteCoin10" class="form-control" />
+                <span asp-validation-for="DepoteCoin10" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin20" class="control-label"></label>
+                <input asp-for="DepoteCoin20" class="form-control" />
+                <span asp-validation-for="DepoteCoin20" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin50" class="control-label"></label>
+                <input asp-for="DepoteCoin50" class="form-control" />
+                <span asp-validation-for="DepoteCoin50" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin100" class="control-label"></label>
+                <input asp-for="DepoteCoin100" class="form-control" />
+                <span asp-validation-for="DepoteCoin100" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepoteCoin200" class="control-label"></label>
+                <input asp-for="DepoteCoin200" class="form-control" />
+                <span asp-validation-for="DepoteCoin200" class="text-danger"></span>
+            </div>
+            <p></p>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

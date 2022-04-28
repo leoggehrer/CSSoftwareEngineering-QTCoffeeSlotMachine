@@ -1,0 +1,83 @@
+﻿@model IEnumerable<QTCoffeeSlotMachine.AspMvc.Models.SlotMachine>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>SlotMachines</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin10)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin20)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin50)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin100)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepoteCoin200)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin20)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin50)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin100)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepoteCoin200)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

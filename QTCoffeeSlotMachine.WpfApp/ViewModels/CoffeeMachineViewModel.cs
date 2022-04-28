@@ -12,7 +12,8 @@ namespace QTCoffeeSlotMachine.WpfApp.ViewModels
 
         public CoffeeMachineViewModel()
         {
-            Controller = new Logic.Controllers.CoffeeMachineController();
+            Controller = new Logic.Controllers.CoffeeMachineController("HTL-Leonding");
+            //Controller = new Logic.Controllers.CoffeeMachineController();
 
             Update();
         }
@@ -85,7 +86,7 @@ namespace QTCoffeeSlotMachine.WpfApp.ViewModels
             TwoHundredCentInEjection = counter;
         }
 
-        public string Location { get; set; } = "HTL-Leonding, Limesstrße 12-14, 4060 Leonding";
+        public string Location => Controller.Location;
         private int fiveCentInDepot;
         public int FiveCentInDepot
         {
@@ -309,6 +310,7 @@ namespace QTCoffeeSlotMachine.WpfApp.ViewModels
         public bool SelectProduct(string product)
         {
             bool result = Controller.SelectProduct(product, out _);
+
             Update();
             return result;
         }

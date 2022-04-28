@@ -1,6 +1,5 @@
 ﻿//@CodeCopy
 //MdStart
-using System.ComponentModel.DataAnnotations;
 
 namespace QTCoffeeSlotMachine.AspMvc.Models
 {
