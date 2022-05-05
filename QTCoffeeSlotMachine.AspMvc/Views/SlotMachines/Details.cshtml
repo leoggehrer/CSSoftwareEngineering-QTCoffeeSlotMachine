@@ -1,0 +1,72 @@
+﻿@model QTCoffeeSlotMachine.AspMvc.Models.SlotMachine
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SlotMachine</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin5)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin5)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin10)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin10)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin20)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin20)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin50)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin50)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin100)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin100)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin200)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin200)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

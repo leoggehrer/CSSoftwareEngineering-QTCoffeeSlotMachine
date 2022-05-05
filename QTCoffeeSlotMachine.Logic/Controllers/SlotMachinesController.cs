@@ -12,35 +12,66 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         public SlotMachinesController(ControllerObject other) : base(other)
         {
         }
-        protected override void ValidateEntity(ActionType actionType, SlotMachine entity)
+
+        public override Task<SlotMachine> InsertAsync(SlotMachine entity)
         {
             CheckEntity(entity);
 
-            base.ValidateEntity(actionType, entity);
+            return base.InsertAsync(entity);
+        }
+        public override Task<IEnumerable<SlotMachine>> InsertAsync(IEnumerable<SlotMachine> entities)
+        {
+            entities.ToList().ForEach(e => CheckEntity(e));
+
+            return base.InsertAsync(entities);
         }
 
+        public override Task<SlotMachine> UpdateAsync(SlotMachine entity)
+        {
+            CheckEntity(entity);
+
+            return base.UpdateAsync(entity);
+        }
+
+        public override Task<IEnumerable<SlotMachine>> UpdateAsync(IEnumerable<SlotMachine> entities)
+        {
+            entities.ToList().ForEach(e => CheckEntity(e));
+
+            return base.UpdateAsync(entities);
+        }
+
+        public override async Task DeleteAsync(int id)
+        {
+            using var prodCtrl = new ProductsController(this);
+
+            if (await prodCtrl.EntitySet.AnyAsync(e => e.SlotMachineId == id))
+            {
+                throw new Modules.Exceptions.LogicException("The machine cannot be deleted. There are still products assigned.");
+            }
+            await base.DeleteAsync(id).ConfigureAwait(false);
+        }
         private void CheckEntity(SlotMachine entity)
         {
             if (entity.Price < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.Price} for {nameof(entity.Price)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin5 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin5} for {nameof(entity.DepoteCoin5)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin10 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin10} for {nameof(entity.DepoteCoin10)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin20 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin20} for {nameof(entity.DepoteCoin20)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin50 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin50} for {nameof(entity.DepoteCoin50)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin100 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin100} for {nameof(entity.DepoteCoin100)}");
+                throw new Modules.Exceptions.LogicException($"....");
 
             if (entity.DepoteCoin200 < 0)
-                throw new Modules.Exceptions.LogicException($"Invalide value {entity.DepoteCoin200} for {nameof(entity.DepoteCoin200)}");
+                throw new Modules.Exceptions.LogicException($"....");
         }
     }
 }

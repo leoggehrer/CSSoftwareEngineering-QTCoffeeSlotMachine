@@ -1,0 +1,80 @@
+﻿@model QTCoffeeSlotMachine.AspMvc.Models.SlotMachine
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SlotMachine</h4>
+    <hr />
+    @if (string.IsNullOrEmpty(ViewBag.Error) == false)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+        </div>
+    }
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin5)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin5)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin10)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin10)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin20)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin20)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin50)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin50)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin100)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin100)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepoteCoin200)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepoteCoin200)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -2,6 +2,7 @@
 {
     public class Product : VersionModel
     {
+        [Display(Name = "Machine")]
         public int SlotMachineId { get; set; }
         [Required]
         [MaxLength(256)]

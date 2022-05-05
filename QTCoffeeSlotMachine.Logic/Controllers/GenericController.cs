@@ -86,15 +86,6 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         /// <summary>
         /// This method is called before an action is performed.
         /// </summary>
-        /// <param name="actionType">Action types such as insert, edit, etc.</param>
-        /// <param name="entity">The entity that the action affects.</param>
-        protected virtual void ValidateEntity(ActionType actionType, TEntity entity)
-        {
-
-        }
-        /// <summary>
-        /// This method is called before an action is performed.
-        /// </summary>
         /// <param name="actionType">Action types such as save, etc.</param>
         protected virtual void BeforeActionExecute(ActionType actionType)
         {
@@ -127,7 +118,6 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         /// <returns>The inserted entity.</returns>
         public virtual async Task<TEntity> InsertAsync(TEntity entity)
         {
-            ValidateEntity(ActionType.Insert, entity);
             BeforeActionExecute(ActionType.Insert, entity);
             await EntitySet.AddAsync(entity).ConfigureAwait(false);
             AfterActionExecute(ActionType.Insert);
@@ -142,7 +132,6 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         {
             foreach (var entity in entities)
             {
-                ValidateEntity(ActionType.Insert, entity);
                 BeforeActionExecute(ActionType.Insert, entity);
             }
             await EntitySet.AddRangeAsync(entities).ConfigureAwait(false);
@@ -159,7 +148,6 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         /// <returns>The the modified entity.</returns>
         public virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
-            ValidateEntity(ActionType.Update, entity);
             BeforeActionExecute(ActionType.Update, entity);
             return Task.Run(() =>
             {
@@ -177,7 +165,6 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         {
             foreach (var entity in entities)
             {
-                ValidateEntity(ActionType.Update, entity);
                 BeforeActionExecute(ActionType.Update, entity);
             }
             return Task.Run(() =>
@@ -198,13 +185,12 @@ namespace QTCoffeeSlotMachine.Logic.Controllers
         {
             return Task.Run(() =>
             {
-                TEntity? entity = EntitySet.Find(id);
+                TEntity? result = EntitySet.Find(id);
 
-                if (entity != null)
+                if (result != null)
                 {
-                    ValidateEntity(ActionType.Delete, entity);
-                    BeforeActionExecute(ActionType.Delete, entity);
-                    EntitySet.Remove(entity);
+                    BeforeActionExecute(ActionType.Delete, result);
+                    EntitySet.Remove(result);
                     AfterActionExecute(ActionType.Delete);
                 }
             });
